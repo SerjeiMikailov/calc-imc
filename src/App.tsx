@@ -1,11 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import styles from './app.module.css';
+import imclogo from './assets/imclogo.jpg'
 
 const App = () => {
   return (
     <div>
-      ...
+      <header>
+        <div className={styles.headerContainer}>
+            <img src={imclogo} alt="Loading" width={150}/>
+        </div>
+      </header>
     </div>
   )
 }
