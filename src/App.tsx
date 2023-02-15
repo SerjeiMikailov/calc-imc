@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
 import styles from './app.module.css';
 import imclogo from './assets/imclogo.jpg'
+import { GridItem } from './components';
+import leftArrowImg from './assets/leftarrow.png'
 
-import { levels, calculateImc } from './helpers/imc';
+import { levels, calculateImc, Level } from './helpers/imc';
 
 const App = () => {
 const [heightField, setheightField] = useState<number> (0);
 const [weightField, setweightField] = useState<number> (0);
+const [showItem, setShowItem] = useState<Level | null>(null)
+
+
 const handleCalculateButton = () => {
   if(heightField && weightField) {
-    
+    setShowItem(calculateImc(heightField, weightField))
   } else {
     alert('Preencha todos os campos')
   }
+}
+
+const handleBackButton = () => {
+  setShowItem(null)
+  setheightField(0)
+  setweightField(0)
 }
 
   return (
@@ -32,21 +43,33 @@ const handleCalculateButton = () => {
               placeholder='Digite a sua Altura. Ex: 1.5 (em métros)'
               value={heightField > 0 ? heightField : ""}
               onChange={e => setheightField(parseFloat(e.target.value))}
+              disabled={showItem ? true : false}
               />
               <input 
               type="number"
               placeholder='Digite o seu peso (em kg)'
               value={weightField > 0 ? weightField : ""}
               onChange={e => setweightField(parseFloat(e.target.value))}
+              disabled={showItem ? true : false}
               />
-              <button onClick={handleCalculateButton}>Calcular</button>
+              <button disabled={showItem ? true : false} onClick={handleCalculateButton}>Calcular</button>
             </div>
             <div className={styles.rightSide}>
+              {!showItem &&
               <div className={styles.grid}>
                   {levels.map((item, key)=> (
-                    <div>{item.title}</div>
+                    <GridItem key={key} item={item}/>
                   ))}
               </div>
+              }
+              {showItem &&
+              <div className={styles.rightBig}>
+                <div className={styles.rightArrow}>
+                  <img onClick={handleBackButton} src={leftArrowImg} alt='Carregando' width={25}/>
+                </div>
+                <GridItem item={showItem}/>
+              </div>
+              }
             </div>
       </div>
     </div>

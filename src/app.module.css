@@ -58,8 +58,16 @@ body {
     transition: all ease .5s;
 }
 
+.container .leftSide input :disabled {
+    opacity: .5;
+}
+
 .container .leftSide button:hover {
     opacity: .9;
+}
+
+.container .leftSide button :disabled {
+    opacity: .5;
 }
 
 
@@ -76,4 +84,23 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+}
+
+.container .rightSide .rightBig {
+    flex: 1;
+    display: flex;
+}
+
+.container .rightSide .rightArrow {
+    position: absolute;
+    background-color: #227c9d;
+    height: 50px;
+    width: 50px;
+    border-radius: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: -20px;
+    margin-top: 145px;
 }
